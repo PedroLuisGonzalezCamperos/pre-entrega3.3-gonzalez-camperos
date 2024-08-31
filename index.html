@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventario</title>
+   <link rel="stylesheet" href="estilos.css">
+  </head>
+  <body>
+    <h2>Inventario de Tienda</h2>
+    <p class="textoEntrada">Introduzca en las casillas a continuación, el nombre del producto, su cantidad y precio. Para cargar el producto en el inventario debe hacer click en el botón Agregar producto</p>
+    <div class="contenedorTabla">
+    
+    
+    <table id="tablaInventario" border="1">
+      <thead>
+        <tr>
+          <th>Nombre del Producto</th>
+          <th>Cantidad</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody id="cuerpoTabla">
+        <tr>
+          <td>
+            <input type="text" id="nombreProducto" placeholder="Nombre" />
+          </td>
+          <td>
+            <input
+              type="number"
+              id="cantidadProducto"
+              placeholder="Cantidad"
+              value="0"
+            />
+          </td>
+          <td>
+            <input
+              type="number"
+              id="precioProducto"
+              placeholder="Precio"
+              value="0"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>
+
+<div class="contenedorCuerpo">
+
+    <br />
+    <button onclick="agregarProducto()">Agregar Producto</button>
+    <button onclick="eliminarUltimaFila()">Eliminar último producto</button
+    ><br /><br />
+    <h3 id="alerta1"></h3><br>
+    <h3>
+      Si desea guardar el inventario en el navegador debe darle un nombre y
+      colocarlo en el siguiente espacio. <br />!Importante el nombre no debe
+      contener espacios!
+    </h3>
+    <input type="text" id="llaves" placeholder="nombre de inventario" />
+    <button onclick="extraerDatos()">Guardar en el navegador</button
+    ><br /><br />
+    <h3 id="alerta2"></h3><br>
+    <h3>Introduzca el nombre del inventario solicitado para mostrarlo en pantalla</h3>
+    <br />
+    <input type="text" id="buscador" placeholder="nombre de inventario" />
+    <button onclick="buscandoInventario()">Buscar inventario</button><br>
+    <h3 id="alerta3"></h3>
+
+
+    <h3>Introduzca el nombre del inventario que desea eliminar</h3><br>
+    <input type="text" id ="eliminador" placeholder="nombre de inventario">
+    <button onclick="eliminarInventario()">Eliminar</button><br>
+    <h3 id="alerta4"></h3>
+
+    
+    <h3 id="alerta5"></h3><br><br><br>
+</div>
+
+    <script src="main.js"></script>
+  </body>
+</html>
+
+
