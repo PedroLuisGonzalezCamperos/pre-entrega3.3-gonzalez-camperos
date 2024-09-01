@@ -1,12 +1,19 @@
+.titulo {
+
+margin-top: 50px;
+
+}
+
 h2 {
+
+   font-weight: bold;
 
     text-align: center;
 }
 
-.textoEntrada {
+h3 {
 
-font-size: 20px;
-font-weight: bold;
+
 margin-left: 100px;
 
 margin-right: 100px;
@@ -24,7 +31,6 @@ justify-content: center;
 
     text-align: center;
 
-
 }
 
 
@@ -41,9 +47,9 @@ th, td {
     text-align: left;
 }
 
-#alerta1, #alerta2, #alerta3, #alerta4, #alerta5 {
-
-color: red;
 
 
+table thead {
+    background:#302b63;
+    color:white;
 }

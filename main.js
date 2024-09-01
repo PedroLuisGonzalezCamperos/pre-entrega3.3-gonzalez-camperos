@@ -1,3 +1,39 @@
+//Esta parte acontinuación del código sería l aaplicación de fetch
+
+function mostrarLista () {
+
+let url = 'https://jsonplaceholder.typicode.com/users/';
+fetch(url)
+    .then( response => response.json() )
+    .then( data => mostrarData(data) )
+    .catch( error => console.log(error) )
+
+
+    const mostrarData = (data) => {
+        console.log(data)
+        let body = ""
+        for (let i = 0; i < data.length; i++) {      
+           body+=`<tr><td>${data[i].id}</td><td>${data[i].name}</td><td>${data[i].email}</td></tr>`
+        }
+        document.getElementById('data').innerHTML = body
+
+       
+        //console.log(body)
+    }
+
+}
+
+function eliminarLista() {
+
+    document.getElementById('data').innerHTML = "";
+
+
+
+}
+
+
+
+
 //Este códico a continuación representa un inventario en el cual el usuario podrá armarlo desde cero y crear el inventario que desee, temdrá la opción de agregar productos con sus cantidades y precios y tendrá también la opción de guardar los inventarios creados, buscar inventarios creados previamente en la web y también tendrá la opción de eliminarlos.
 
 
@@ -8,13 +44,9 @@ function agregarProducto() {
     let precioP = document.getElementById("precioProducto").value;
 
     if (nombreP === "" || cantidadP === "" || precioP === "") {
-        document.getElementById("alerta1").textContent =
-            "Debes llenar todos los campos";
-        document.getElementById("alerta2").textContent = "";
-        document.getElementById("alerta3").textContent = "";
-        document.getElementById("alerta4").textContent = "";
-        document.getElementById("alerta5").textContent = "";
 
+        Swal.fire("Debes llenar todos los espacios!");
+     
     } else {
         document.getElementById("alerta1").textContent = "";
         //insertando fila
@@ -71,38 +103,39 @@ function extraerDatos() {
     const inventarioF = inventario.value.trim();
 
     if (inventarioF === "") {
-        document.getElementById("alerta2").textContent =
-            "Debes ingresar un nombre.";
-        document.getElementById("alerta1").textContent = ""
-        document.getElementById("alerta3").textContent = ""
-        document.getElementById("alerta4").textContent = ""
-        document.getElementById("alerta5").textContent = ""
+        Swal.fire("Debes ingresar el nombre!");
         return;
     }
 
     if (localStorage.getItem(inventarioF)) {
-        document.getElementById("alerta2").textContent = `El nombre "${inventarioF}" ya existe.`;
-        document.getElementById("alerta1").textContent = "";
-        document.getElementById("alerta4").textContent = "";
-        document.getElementById("alerta3").textContent = "";
-        document.getElementById("alerta5").textContent = "";
+        document.getElementById("llaves").value = "";
+        Swal.fire({
+            icon: "error",
+            title: "Ese nombre ya existe debes usar otro",
+            
+            
+          });
+
+
        
     } else {
         localStorage.setItem(inventarioF, JSON.stringify(productos));
-        document
-        document.getElementById("alerta2").textContent = inventarioF + "  ya se guardo en el navegador"
-        document.getElementById("alerta1").textContent = "";
-        document.getElementById("alerta4").textContent = "";
-        document.getElementById("alerta3").textContent = "";
-        document.getElementById("alerta5").textContent = "";
+
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: inventarioF + " Se guardo en el navegador",
+            showConfirmButton: false,
+            timer: 2500
+          });
+
+       
     }
 
-    //let lista = JSON.parse(localStorage.getItem("llaveProductos"))
-
-    //console.log(lista);
+    
 }
 
-inventario.value = "";
+
 
 
 //La función buscandoInventario() indica según el nombre si el inventario solicitado existe y en este caso lo muestra como un string y en caso contrario indica que no existe.
@@ -110,25 +143,30 @@ function buscandoInventario() {
     let buscador = document.getElementById("buscador").value;
 
     if (localStorage.getItem(buscador)) {
-        document.getElementById("alerta3").textContent = localStorage.getItem(buscador);
 
+        document.getElementById("alerta3").innerText = buscador + '  contiene los siguientes productos:\n\n ' + localStorage.getItem(buscador);
+        
     } else {
-        document.getElementById("alerta3").textContent =
-            "El nombre no coincide con ningún inventario";
-            document.getElementById("alerta1").textContent = "";
-        document.getElementById("alerta2").textContent = "";
-        document.getElementById("alerta4").textContent = "";
-        document.getElementById("alerta5").textContent = "";
+        document.getElementById("buscador").value = "";
+        Swal.fire({
+            icon: "error",
+            title: "El nombre no coincide con ningún inventario",
+            
+            
+          });
+
+    
     }
 
     if (buscador === "") {
-        document.getElementById("alerta3").textContent =
-            "debes introducir un nombre";
-        document.getElementById("alerta1").textContent = "";
-        document.getElementById("alerta2").textContent = "";
-        document.getElementById("alerta4").textContent = "";
-        document.getElementById("alerta5").textContent = "";
+
+        Swal.fire("Debes ingresar el nombre!");
+
+       
     }
+
+
+    
 }
 
 function eliminarInventario() {
@@ -137,32 +175,31 @@ function eliminarInventario() {
     if (localStorage.getItem(eliminador)) {
         localStorage.removeItem(eliminador);
 
-        document.getElementById("alerta4").textContent =
-            "el  " + eliminador + "  fue eliminado del navegador";
-            document.getElementById("alerta1").textContent = "";
-        document.getElementById("alerta2").textContent = "";
-        document.getElementById("alerta3").textContent = "";
-        document.getElementById("alerta5").textContent = "";
 
+        Swal.fire({
+            position: "center",
+            icon: "success",
+            title: eliminador + " Se eliminó del navegador",
+            showConfirmButton: false,
+            timer: 2500
+          });
 
-
-        document.getElementById("alerta3").textContent = "";
+        
     } else {
-        document.getElementById("alerta4").textContent =
-            "El nombre no coincide con ningún inventario guardado en el navegador";
-            document.getElementById("alerta1").textContent = "";
-        document.getElementById("alerta2").textContent = "";
-        document.getElementById("alerta3").textContent = "";
-        document.getElementById("alerta5").textContent = "";
+
+document.getElementById("eliminador").value = "";
+
+        Swal.fire({
+            icon: "error",
+            title: "El nombre no coincide con ningún inventario guardado en el navegador",
+            
+            
+          });
+
     }
 
     if (eliminador === "") {
-        document.getElementById("alerta4").textContent =
-            "debes introducir un nombre";
-        document.getElementById("alerta1").textContent = "";
-        document.getElementById("alerta2").textContent = "";
-        document.getElementById("alerta3").textContent = "";
-        document.getElementById("alerta5").textContent = "";
+        Swal.fire("Debes ingresar el nombre!");
     }
 }
 
@@ -172,3 +209,7 @@ function eliminarUltimaFila() {
         table.deleteRow(table.rows.length - 2);
     }
 }
+
+
+//Aquí se aplicaría fetch
+
